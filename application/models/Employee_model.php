@@ -10,7 +10,7 @@ class Employee_model extends CI_Model {
     
     public function get_attendance()
     {
-        $total_attendance = $this->db->get('employees');
+        $total_attendance = $this->db->get('attendance');
         return $total_attendance->result_array();     
     }
     
@@ -22,7 +22,7 @@ class Employee_model extends CI_Model {
             'status' => $this->input->post('status')
         );
         $query = $this->db->insert('attendance', $data);
-        $category_id = $this->db->insert_id();
+        $attendance_id = $this->db->insert_id();
         if($query){
             return $data;
         }
