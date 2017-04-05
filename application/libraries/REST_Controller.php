@@ -341,6 +341,15 @@ abstract class REST_Controller extends \CI_Controller {
     protected $_enable_xss = FALSE;
 
     /**
+     * api_key
+     * after we have checked if the api_key exists in db and the user has been authenticated
+     * we can use it anywhere else in the application. 
+     *
+     * @var bool
+     */
+    protected $api_key = NULL;
+
+    /**
      * HTTP status codes and their respective description
      * Note: Only the widely used HTTP status codes are used
      *
@@ -1026,6 +1035,9 @@ abstract class REST_Controller extends \CI_Controller {
             }
 
             $this->rest->key = $row->{$this->config->item('rest_key_column')};
+            
+            // setting the private variable api_key so it can be accessed in sub classes inheriting REST_Controller
+            $this->api_key = $this->rest->key;
 
             isset($row->user_id) && $this->rest->user_id = $row->user_id;
             isset($row->level) && $this->rest->level = $row->level;

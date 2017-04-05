@@ -46,7 +46,10 @@ class Employee extends REST_Controller {
     public function attendance_post()
     {
         $this->load->model('employee_model');
-        $new_attendance = $this->employee_model->post_attendance();
+        // get the api key from request header
+        // and make a database request to get the org_id associated with it.
+        $org_id = $this->employee_model->getOrgIdFromApiKey($this->api_key);
+        $new_attendance = $this->employee_model->post_attendance($org_id);
         $this->set_response($new_attendance, REST_Controller::HTTP_CREATED); // CREATED (201) being the HTTP response code
     }
 
